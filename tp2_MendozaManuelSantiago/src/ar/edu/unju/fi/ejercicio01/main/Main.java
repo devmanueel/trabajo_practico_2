@@ -1,11 +1,13 @@
-package ar.edu.unju.fi.main;
+package ar.edu.unju.fi.ejercicio01.main;
 import java.util.ArrayList;
 import java.util.InputMismatchException;
 import java.util.List;
 import java.util.Scanner;
-import ar.edu.unju.fi.model.Producto;
-import ar.edu.unju.fi.model.Producto.Categoria;
-import ar.edu.unju.fi.model.Producto.OrigenFabricacion;
+import ar.edu.unju.fi.ejercicio01.model.Producto;
+import ar.edu.unju.fi.ejercicio01.model.Producto.Categoria;
+import ar.edu.unju.fi.ejercicio01.model.Producto.OrigenFabricacion;
+import ar.edu.unju.fi.ejercicio01.util.Submenus;
+
 
 
 public class Main {
@@ -67,67 +69,12 @@ public class Main {
             System.out.print("Ingrese Precio Unitario: ");
             double precio = entrada.nextDouble();
             entrada.nextLine(); 
-            System.out.print("Ingrese Origen de fabricacion: ");
-            System.out.println("\n----------- Origen de fabricacion -----------\n");
-            System.out.println("1- Argentina ");
-            System.out.println("2- China ");
-            System.out.println("3- Brasil ");
-            System.out.println("4- Uruguay ");
-            System.out.println("----------------------------------------------");
-            System.out.println("Ingrese una opcion: ");
-            int op = entrada.nextInt();
-            OrigenFabricacion origenFabricacion = null;
-            do {
-					switch (op) {
-			            case 1:
-			            	origenFabricacion = OrigenFabricacion.ARGENTINA;
-			                break;
-			            case 2:
-			            	origenFabricacion = OrigenFabricacion.CHINA;
-			                break;
-			            case 3:
-			            	origenFabricacion = OrigenFabricacion.BRASIL;
-			                break;
-			            case 4:
-			            	origenFabricacion = OrigenFabricacion.URUGUAY;
-			                break;
-			            default:
-			                System.out.println("Opción no válida. Intente nuevamente.");
-	            
-				}
-			} while (!(op == 4 || op == 1 || op == 2 || op == 3));
-            entrada.nextLine(); 
-            
-            
-            System.out.print("Ingrese Categoria de Producto: ");
-            System.out.println("\n----------- Categoria -----------\n");
-            System.out.println("1- Telefonia ");
-            System.out.println("2- Informatica ");
-            System.out.println("3- Electro Hogar ");
-            System.out.println("4- Herramientras ");
-            System.out.println("----------------------------------------------");
-            System.out.println("Ingrese una opcion: ");
-            int op2 = entrada.nextInt();
-            Categoria categoria =null;
-            do {
-					switch (op2) {
-			            case 1:
-			            	categoria = Categoria.TELEFONIA;
-			                break;
-			            case 2:
-			            	categoria = Categoria.INFORMATICA;
-			                break;
-			            case 3:
-			            	categoria = Categoria.ELECTROHOGAR;
-			                break;
-			            case 4:
-			            	categoria = Categoria.HERRAMIENTAS;
-			                break;
-			            default:
-			                System.out.println("Opción no válida. Intente nuevamente.");
-				}
-			} while ( !(op2 == 4 || op2 == 1 || op2 == 2 || op2 == 3) );
-            entrada.nextLine(); 
+            //llamada a la clase submenus origen de fabricacion
+            OrigenFabricacion origenFabricacion = Submenus.subMenuOf(entrada);
+             
+            //lamada a la clase submenu de producto
+            Categoria categoria = Submenus.subMenuCP(entrada);
+            //creacion de objeto
             Producto producto = new Producto(codigo, descrpcion, precio, origenFabricacion, categoria);
             productos.add(producto);
             
@@ -156,33 +103,10 @@ public class Main {
         	System.out.print("Ingrese Codigo Producto: ");
         	int cod = leerScanner.nextInt();
         	Producto producto = buscarProducto(cod, productos);
-        	
-            if (producto != null) {
-               int op3 = leerScanner.nextInt();
-	            do {
-						switch (op3) {
-				            case 1:
-				            	
-				                break;
-				            case 2:
-				            	
-				                break;
-				            case 3:
-				            	
-				                break;
-				            case 4:
-				            	
-				                break;
-				            default:
-				                System.out.println("Opción no válida. Intente nuevamente.");
-					}
-				} while ( !(op3 == 4 || op3 == 1 || op3 == 2 || op3 == 3) );
-	            
-            } else {
-                System.out.println("Producto No encontrado.");
-
-            }
+        	//MOdificando Producto
+        	Submenus.SubModificacion(leerScanner, producto);
             
+        	
         }
             
         	private static Producto buscarProducto(int codigo, List<Producto> productos) {       	
