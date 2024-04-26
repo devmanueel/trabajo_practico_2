@@ -16,8 +16,8 @@ public class Submenus {
 	public static OrigenFabricacion subMenuOf(Scanner entrada) {
 	    int op = 0; 
 	    OrigenFabricacion origenFabricacion = null; 
-	    
-	    try {
+	    do {
+	    try { 
 	        System.out.print("Ingrese Origen de fabricacion: ");
 	        System.out.println("\n----------- Origen de fabricacion -----------\n");
 	        System.out.println("1- Argentina ");
@@ -26,8 +26,6 @@ public class Submenus {
 	        System.out.println("4- Uruguay ");
 	        System.out.println("----------------------------------------------");
 	        System.out.println("Ingrese una opcion: ");
-
-	        do {
 	            op = entrada.nextInt();
 
 	            switch (op) {
@@ -45,50 +43,60 @@ public class Submenus {
 	                    break;
 	                default:
 	                    System.out.println("Opción no válida. Intente nuevamente.");
+	                     
 	            }
-	        } while (!(op == 4 || op == 1 || op == 2 || op == 3));
+	        
 
 	        entrada.nextLine(); // Limpiar el búfer del escáner
-	    } catch (InputMismatchException e) {
-	        System.out.println("Entrada inválida. Se esperaba un número entero.");
-	        entrada.nextLine(); // Limpiar el búfer del escáner en caso de que se haya ingresado un tipo de dato incorrecto
-	    }
+		    } catch (InputMismatchException e) {
+		        System.out.println("Entrada inválida. Se esperaba un número entero.");
+		        entrada.nextLine(); // Limpiar el búfer del escáner en caso de que se haya ingresado un tipo de dato incorrecto
+		    }
+	    } while (!(op == 4 || op == 1 || op == 2 || op == 3));
 	    
 	    return origenFabricacion; // Devuelve el valor seleccionado
 	    
 	}
 	
 	public static Categoria subMenuCP(Scanner entrada) {
-	 
-		System.out.print("Ingrese Categoria de Producto: ");
-	    System.out.println("\n----------- Categoria -----------\n");
-	    System.out.println("1- Telefonia ");
-	    System.out.println("2- Informatica ");
-	    System.out.println("3- Electro Hogar ");
-	    System.out.println("4- Herramientras ");
-	    System.out.println("----------------------------------------------");
-	    System.out.println("Ingrese una opcion: ");
-	    int op2 = entrada.nextInt();
-	    Categoria categoria =null;
-	    do {
-				switch (op2) {
-		            case 1:
-		            	categoria = Categoria.TELEFONIA;
-		                break;
-		            case 2:
-		            	categoria = Categoria.INFORMATICA;
-		                break;
-		            case 3:
-		            	categoria = Categoria.ELECTROHOGAR;
-		                break;
-		            case 4:
-		            	categoria = Categoria.HERRAMIENTAS;
-		                break;
-		            default:
-		                System.out.println("Opción no válida. Intente nuevamente.");
-			}
-		} while ( !(op2 == 4 || op2 == 1 || op2 == 2 || op2 == 3) );
-	    entrada.nextLine();
+		Categoria categoria =null;
+		int op2 = 0;
+		 do {
+			try {
+			System.out.print("Ingrese Categoria de Producto: ");
+		    System.out.println("\n----------- Categoria -----------\n");
+		    System.out.println("1- Telefonia ");
+		    System.out.println("2- Informatica ");
+		    System.out.println("3- Electro Hogar ");
+		    System.out.println("4- Herramientras ");
+		    System.out.println("----------------------------------------------");
+		    System.out.println("Ingrese una opcion: ");
+		    op2 = entrada.nextInt();
+		    
+		   
+					switch (op2) {
+			            case 1:
+			            	categoria = Categoria.TELEFONIA;
+			                break;
+			            case 2:
+			            	categoria = Categoria.INFORMATICA;
+			                break;
+			            case 3:
+			            	categoria = Categoria.ELECTROHOGAR;
+			                break;
+			            case 4:
+			            	categoria = Categoria.HERRAMIENTAS;
+			                break;
+			            default:
+			                System.out.println("Opción no válida. Intente nuevamente.");
+				}
+			
+		    entrada.nextLine();
+		} catch (InputMismatchException e) {
+			System.out.println("Entrada inválida. Se esperaba un número entero.");
+	        entrada.nextLine();
+		}
+	} while ( !(op2 == 4 || op2 == 1 || op2 == 2 || op2 == 3) );
 	 return categoria;  
 	}
 	
@@ -102,16 +110,17 @@ public class Submenus {
               System.out.println("----------------------------------------------");
               System.out.println("Ingrese una opcion: ");
               int op3 = entrada.nextInt(); 
+              entrada.nextLine();
 	            do {
 						switch (op3) {
 				            case 1:
 				            	System.out.println("Ingrese Nueva descripcion");
-				            	 String descString = entrada.nextLine();
-				            	 prod.setDescripcion(descString);
+				            	String descString = entrada.nextLine();
+				            	prod.setDescripcion(descString);
 				                break;
 				            case 2:
 				            	System.out.println("Ingrese nuevo Precio");
-				            	double pecio = entrada.nextInt();
+				            	double pecio = entrada.nextDouble();
 				            	prod.setPrecioUnitario(pecio);
 				                break;
 				            case 3:

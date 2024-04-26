@@ -81,9 +81,11 @@ public class Main {
             System.out.println(productos.size()+"Producto creado correctamente.");
             
         } catch (Exception e) {
-            System.out.println("Error al dar de alta El Producto./n Motivo del Eror: " + e.getMessage());
+            System.out.println("Error al dar de alta El Producto. \n Motivo del Eror: Datos incorrectos");
+            entrada.nextLine();
         }
-     
+        
+        
 	}
 	
         private static void mostrarProductos(List<Producto> productos) {
@@ -105,8 +107,7 @@ public class Main {
         	Producto producto = buscarProducto(cod, productos);
         	//MOdificando Producto
         	Submenus.SubModificacion(leerScanner, producto);
-            
-        	
+                    	
         }
             
         	private static Producto buscarProducto(int codigo, List<Producto> productos) {       	
