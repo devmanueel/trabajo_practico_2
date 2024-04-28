@@ -1,20 +1,18 @@
 package ar.edu.unju.fi.ejercicio02.model;
 
-import java.time.LocalDate;
-
 import ar.edu.unju.fi.ejercicio02.constantes.Mes;
 
 public class Efemeride {
 	private int codigo;
 	private Mes mes;
-	private LocalDate dia;
+	private int dia;
 	private String detalle;
 	
 	public Efemeride() {
 		// TODO Auto-generated constructor stub
 	}
 
-	public Efemeride(int codigo, Mes mes, LocalDate dia, String detalle) {
+	public Efemeride(int codigo, Mes mes, int dia, String detalle) {
 		this.codigo = codigo;
 		this.mes = mes;
 		this.dia = dia;
@@ -37,11 +35,11 @@ public class Efemeride {
 		this.mes = mes;
 	}
 
-	public LocalDate getDia() {
+	public int getDia() {
 		return dia;
 	}
 
-	public void setDia(LocalDate dia) {
+	public void setDia(int dia) {
 		this.dia = dia;
 	}
 
