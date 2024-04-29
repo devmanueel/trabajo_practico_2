@@ -2,12 +2,12 @@
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.InputMismatchException;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Scanner;
 
+import ar.edu.unju.fi.ejercicio04.constantes.Posicion;
 import ar.edu.unju.fi.ejercicio04.model.Jugador;
 
 
@@ -24,13 +24,10 @@ public class Main {
             System.out.println("\n\t\tMENÚ DE JUGADORES");
             System.out.println("----------------------------------------------");
             System.out.println("1. Alta de jugador");
-            System.out.println("2. Mostrar datos de un jugador: ");
-            System.out.println("3. Mostrar jugadores ordenados por apellido");
-            System.out.println("4. Modificar datos de un jugador");
-            System.out.println("5. Eliminar un jugador");
-            System.out.println("6. Mostrar cantidad total de jugadores");
-            System.out.println("7. Mostrar jugadores por nacionalidad");
-            System.out.println("8. Salir");
+            System.out.println("2. Mostrar datos de los jugadores ");
+            System.out.println("3. Modificar datos de un jugador");
+            System.out.println("4. Eliminar un jugador");
+            System.out.println("5. Salir");
             System.out.print("Ingrese una opción: ");
 
             try {
@@ -45,21 +42,12 @@ public class Main {
                         mostrarDatosJugador(lerScanner,jugadores);
                         break;
                     case 3:
-                        mostrarJugadoresOrdenadosApellido(jugadores);
-                        break;
-                    case 4:
                         modificarJugador(lerScanner, jugadores);
                         break;
-                    case 5:
+                    case 4:
                     	eliminarJugador(lerScanner, jugadores);
                         break;
-                    case 6:
-                    	totalJugadores(jugadores);
-                        break;
-                    case 7:
-                    	mostrarCantidadPorNacionalidad(lerScanner, jugadores);
-                        break;
-                    case 8:
+                    case 5:
                         System.out.println("Saliendo del menú...");
                         break;
                     default:
@@ -71,13 +59,15 @@ public class Main {
             } catch (Exception e) {
                 System.out.println("Ocurrió un error inesperado. Motivo: " + e.getMessage());
             }
-        } while (opcion != 8);
+        } while (opcion != 5);
 
         lerScanner.close();
 	}
 	
 	//metodo para agregar a un jugador
 		private static void agregarJugador(Scanner entrada, List<Jugador> jugadores) {
+			Posicion posicion = null;
+			
 	        try {
 	            System.out.print("Ingrese el nombre del jugador: ");
 	            String nombre = entrada.nextLine();
@@ -98,21 +88,45 @@ public class Main {
 	            System.out.print("Ingrese el peso del jugador (en kg): ");
 	            double peso = entrada.nextDouble();
 	            entrada.nextLine(); 
-
-	            System.out.print("Ingrese la posición del jugador (delantero, medio, defensa, arquero): ");
-	            String posicion = entrada.nextLine();
-
+	            String op;
+	            
+	            do {
+	            	System.out.print("Ingrese la posición del jugador (delantero, medio, defensa, arquero): ");
+		            String opString = entrada.nextLine();
+		            
+		            System.out.println(opString);
+		            op = opString.toUpperCase();
+		            
+		            System.out.println(op);
+		            switch (op) {
+					case "DELANTERO": 
+						posicion = Posicion.DELANTERO;
+						break;
+					case "MEDIO":
+						posicion = Posicion.MEDIO;
+						break;
+					case "DEFENSA":
+						posicion = Posicion.DEFENSA;
+						break;
+					case "ARQUERO":
+						posicion = Posicion.ARQUERO;
+						break;
+					default:
+						System.out.println("Opción no válida. Intente nuevamente.");
+					}
+				} while ( op == "DELANTERO" || op == "MEDIO" || op == "DEFENSA" || op == "ARQUERO");
+	           
 	            // Crear un nuevo objeto Jugador y agregarlo al ArrayList
 	            Jugador jugador = new Jugador(nombre, apellido, fechaNacimiento, nacionalidad, estatura, peso, posicion);
 	            jugadores.add(jugador);
 	            System.out.println(jugadores.size()+"Jugador dado de alta correctamente.");
 	            
-	            
 	        } catch (Exception e) {
 	            System.out.println("Error al dar de alta al jugador./n Motivo del Eror: " + e.getMessage());
 	        }
 	        
-	    }
+	    
+	}
 		
 		
 		//Metodo para mostrar los datos
@@ -145,24 +159,6 @@ public class Main {
 	        }
 	    }
 		
-		//muestro los juagores ordenados por apellido 
-	    private static void mostrarJugadoresOrdenadosApellido(List<Jugador> jugadores) {
-	        
-	    	try {
-	            // Ordenar el ArrayList de jugadores por apellido
-	            Collections.sort(jugadores, (j1, j2) -> j1.getApellido().compareToIgnoreCase(j2.getApellido()));
-	                       
-	            // Mostrar los jugadores ordenados
-	            System.out.println("\nJugadores ordenados por apellido:");
-	            for (Jugador jugador : jugadores) {
-	                System.out.println(jugador);
-	            }
-	        } catch (Exception e) {
-	            System.out.println("Error al mostrar jugadores ordenados. Motivo: " + e.getMessage());
-	        }
-	  
-	    }
-
 	    
 	    private static Jugador buscarJugador(String nombre, String apellido, List<Jugador> jugadores) {       	
             // Buscar jugador
@@ -177,6 +173,8 @@ public class Main {
 	
 	    
 	    private static void modificarJugador(Scanner leerScanner, List<Jugador> jugadores) {
+	    	Posicion posicion = null;
+	    	
 	    	try {
 	    		
 	            System.out.print("Ingrese el nombre del jugador que decea modificar: ");
@@ -217,12 +215,29 @@ public class Main {
 	                double peso = leerScanner.nextDouble();
 	                leerScanner.nextLine();
 	                jugador.setPeso(peso);
-
-	                System.out.print("Ingrese la nueva posición del jugador (delantero, medio, defensa, arquero): ");
-	                String posicion = leerScanner.nextLine();
+	                String op;                
+	                do {
+		            	System.out.print("Ingrese la posición del jugador (delantero, medio, defensa, arquero): ");
+			            String opString = leerScanner.nextLine();
+			            op = opString.toUpperCase();
+			            switch (op) {
+						case "DELANTERO": 
+							posicion = Posicion.DELANTERO;
+							break;
+						case "MEDIO":
+							posicion = Posicion.MEDIO;
+							break;
+						case "DEFENSA":
+							posicion = Posicion.DEFENSA;
+							break;
+						case "ARQUERO":
+							posicion = Posicion.ARQUERO;
+							break;
+						default:
+							System.out.println("Opción no válida. Intente nuevamente.");
+						}
+					} while ( op == "DELANTERO" || op == "MEDIO" || op == "DEFENSA" || op == "ARQUERO");
 	                jugador.setPosicion(posicion);
-	                
-	                
 	                
 	            } else {
 	                System.out.println("Jugador no encontrado.");
@@ -255,26 +270,5 @@ public class Main {
 	        
 	    }
 	    
-	    
-	  //muestra las cantidad total de elementos dentro del araylist 
-		 private static void totalJugadores(List<Jugador> jugadores) {
-			
-	        System.out.println("********* "+ "Cantidad Jugadores: "+jugadores.size()+" ************");  
-		 }
-		 
-		 
-		 private static void mostrarCantidadPorNacionalidad(Scanner scanner, List<Jugador> jugadores) {
-		        System.out.print("Ingrese la nacionalidad para contar jugadores: ");
-		        String nacionalidad = scanner.nextLine();
-
-		        int contador = 0;
-		        for (Jugador jugador : jugadores) {
-		            if (jugador.getNacionalidad().equalsIgnoreCase(nacionalidad)) {
-		                contador++;
-		            }
-		        }
-		        System.out.println("La cantidad de jugadores de nacionalidad " + nacionalidad + " es: " + contador);
-		    }
-	
 	
 }

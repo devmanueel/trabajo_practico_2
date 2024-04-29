@@ -2,24 +2,26 @@ package ar.edu.unju.fi.ejercicio04.model;
 
 import java.time.LocalDate;
 
+import ar.edu.unju.fi.ejercicio04.constantes.Posicion;
+
 public class Jugador {
 	private String nombre;
 	private String apellido;
 	private LocalDate fechaNacimiento;
 	private String nacionalidad;
 	private double estatura;
-	private double peso;
-	private String posicion;
+	private double peso;	
+	private Posicion posicion;
 	
 	public Jugador() {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public Jugador(String nombre, String apellido, LocalDate fechaNac, String nacionalidad, double estatura,
-			double peso, String posicion) {
+	public Jugador(String nombre, String apellido, LocalDate fechaNacimiento, String nacionalidad, double estatura,
+			double peso, Posicion posicion) {
 		this.nombre = nombre;
 		this.apellido = apellido;
-		this.fechaNacimiento = fechaNac;
+		this.fechaNacimiento = fechaNacimiento;
 		this.nacionalidad = nacionalidad;
 		this.estatura = estatura;
 		this.peso = peso;
@@ -27,13 +29,6 @@ public class Jugador {
 	}
 
 	
-	public String getPosicion() {
-		return posicion;
-	}
-
-	public void setPosicion(String posicion) {
-		this.posicion = posicion;
-	}
 	public String getNombre() {
 		return nombre;
 	}
@@ -54,8 +49,8 @@ public class Jugador {
 		return fechaNacimiento;
 	}
 
-	public void setFechaNacimiento(LocalDate fechaNac) {
-		this.fechaNacimiento = fechaNac;
+	public void setFechaNacimiento(LocalDate fechaNacimiento) {
+		this.fechaNacimiento = fechaNacimiento;
 	}
 
 	public String getNacionalidad() {
@@ -81,7 +76,15 @@ public class Jugador {
 	public void setPeso(double peso) {
 		this.peso = peso;
 	}
-	
+
+	public Posicion getPosicion() {
+		return posicion;
+	}
+
+	public void setPosicion(Posicion posicion) {
+		this.posicion = posicion;
+	}
+
 	public int calcularEdad() {
 		
 		LocalDate fechaActual = LocalDate.now();
