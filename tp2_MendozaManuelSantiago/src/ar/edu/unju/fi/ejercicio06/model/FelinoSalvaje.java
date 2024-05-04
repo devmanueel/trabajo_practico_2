@@ -38,6 +38,11 @@ public class FelinoSalvaje {
 	public void setPeso(float peso) {
 		this.peso = peso;
 	}
+
+	@Override
+	public String toString() {
+		return "FelinoSalvaje [nombre=" + nombre + ", edad=" + edad + ", peso=" + peso + "]";
+	}
 	
 	
 	
